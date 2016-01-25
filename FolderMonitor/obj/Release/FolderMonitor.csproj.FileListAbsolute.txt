@@ -6,3 +6,4 @@ C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonito
 C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.csproj.GenerateResource.Cache
 C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.exe
 C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.pdb
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.csprojResolveAssemblyReference.cache

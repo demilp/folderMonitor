@@ -75,7 +75,7 @@ namespace FolderMonitor
             DialogResult res = folderBrowserDialogDestination.ShowDialog();
             if (res == DialogResult.OK)
             {
-                textBoxDestination.Text = folderBrowserDialogOriginals.SelectedPath;
+                textBoxDestination.Text = folderBrowserDialogDestination.SelectedPath;
             }
         }
 
