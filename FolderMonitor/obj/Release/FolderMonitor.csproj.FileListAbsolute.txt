@@ -1,0 +1,8 @@
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\bin\Release\FolderMonitor.exe.config
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\bin\Release\FolderMonitor.exe
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\bin\Release\FolderMonitor.pdb
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.FolderMonitor.resources
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.Properties.Resources.resources
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.csproj.GenerateResource.Cache
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.exe
+C:\Users\Demian\Documents\Visual Studio 2015\Projects\FolderMonitor\FolderMonitor\obj\Release\FolderMonitor.pdb
