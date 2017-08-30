@@ -220,7 +220,8 @@ namespace Bypass
 }
 #else
 {
-    while (run) {
+    while (run)
+    {
         clientLoop();
     }
 }

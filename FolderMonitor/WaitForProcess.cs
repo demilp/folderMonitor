@@ -37,7 +37,8 @@ namespace FolderMonitor
                 startInfo.WorkingDirectory = Path.GetDirectoryName(processFile);
                 string fullFilePath = Path.GetFullPath(file);
                 startInfo.Arguments = "\"" + fullFilePath + "\" \"" + Path.GetDirectoryName(fullFilePath) + "\" \"" + Path.GetFileNameWithoutExtension(file) + "\" \"" + Path.GetExtension(file) + "\"";
-                startInfo.UseShellExecute = true;
+                startInfo.UseShellExecute = FolderMonitor.window;
+                startInfo.CreateNoWindow = !FolderMonitor.window;
                 startInfo.WindowStyle = ProcessWindowStyle.Normal;
 
                 process.StartInfo = startInfo;

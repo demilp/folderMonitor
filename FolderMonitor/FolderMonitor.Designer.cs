@@ -220,6 +220,7 @@
             this.Name = "FolderMonitor";
             this.Text = "FolderMonitor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FolderMonitor_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FolderMonitor_FormClosed);
             this.Load += new System.EventHandler(this.FolderMonitor_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

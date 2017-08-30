@@ -20,9 +20,15 @@ namespace FolderMonitor
         public static bool isProcessingFile = false;
         public static bool useBypass;
         public static Bypass.BypassClient client;
+        public static bool window;
         public FolderMonitor()
         {
             InitializeComponent();
+            timer.Interval = int.Parse(ConfigurationManager.AppSettings["checkInterval"]);
+            textBoxSource.Text = ConfigurationManager.AppSettings["sourceFolder"];
+            textBoxOrginals.Text = ConfigurationManager.AppSettings["originalsFolder"];
+            textBoxDestination.Text = ConfigurationManager.AppSettings["destinationFolder"];
+            textBoxProcess.Text = ConfigurationManager.AppSettings["processFile"];
         }
 
         private void buttonBrowseSourceFolder_Click(object sender, EventArgs e)
@@ -40,6 +46,7 @@ namespace FolderMonitor
             if (res == DialogResult.OK)
             {
                 textBoxSource.Text = folderBrowserDialogSource.SelectedPath;
+                SaveConfig();
             }
         }
 
@@ -58,6 +65,7 @@ namespace FolderMonitor
             if (res == DialogResult.OK)
             {
                 textBoxOrginals.Text = folderBrowserDialogOriginals.SelectedPath;
+                SaveConfig();
             }
         }
 
@@ -76,12 +84,30 @@ namespace FolderMonitor
             if (res == DialogResult.OK)
             {
                 textBoxDestination.Text = folderBrowserDialogDestination.SelectedPath;
+                SaveConfig();
             }
         }
 
         private void buttonBrowseProcessFile_Click(object sender, EventArgs e)
         {
+            
+            if (Directory.Exists(textBoxProcess.Text))
+            {
+                openFileDialogBat.InitialDirectory = new FileInfo(textBoxProcess.Text).DirectoryName;
+                openFileDialogBat.FileName = textBoxProcess.Text;
+            }
+            else
+            {
+                openFileDialogBat.InitialDirectory = Environment.CurrentDirectory;
+                openFileDialogBat.FileName = "";
+            }
 
+            DialogResult res = openFileDialogBat.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                textBoxProcess.Text = openFileDialogBat.FileName;
+                SaveConfig();
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -109,7 +135,16 @@ namespace FolderMonitor
                 ProcessFile(d);
             }
         }
-
+        void SaveConfig()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(Path.Combine(Environment.CurrentDirectory, AppDomain.CurrentDomain.FriendlyName));
+            config.AppSettings.Settings["extension"].Value = textBoxExtension.Text;
+            config.AppSettings.Settings["destinationFolder"].Value = textBoxDestination.Text;
+            config.AppSettings.Settings["originalsFolder"].Value = textBoxOrginals.Text;
+            config.AppSettings.Settings["sourceFolder"].Value = textBoxSource.Text;
+            config.AppSettings.Settings["processFile"].Value = textBoxProcess.Text;
+            config.Save(ConfigurationSaveMode.Modified);
+        }
         private string[] GetNewFiles()
         {
             try
@@ -188,6 +223,7 @@ namespace FolderMonitor
             overwrite = ConfigurationManager.AppSettings["overwriteFiles"].ToLower() == "true";
             queueMode = ConfigurationManager.AppSettings["queueMode"].ToLower() == "true";
             useBypass = ConfigurationManager.AppSettings["useBypass"].ToLower() == "true";
+            window = ConfigurationManager.AppSettings["showWindow"].ToLower() == "true";
             if (useBypass)
             {
                 client = new Bypass.BypassClient(ConfigurationManager.AppSettings["bypassIp"], int.Parse(ConfigurationManager.AppSettings["bypassPort"]), ConfigurationManager.AppSettings["bypassDelimiter"], ConfigurationManager.AppSettings["bypassId"], "");
@@ -196,18 +232,27 @@ namespace FolderMonitor
 
         private void FolderMonitor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (client != null)
-            {
-                client.Close();
-            }
-            Configuration config = ConfigurationManager.OpenExeConfiguration(Path.Combine(Environment.CurrentDirectory, AppDomain.CurrentDomain.FriendlyName));
+            /*Configuration config = ConfigurationManager.OpenExeConfiguration(Path.Combine(Environment.CurrentDirectory, AppDomain.CurrentDomain.FriendlyName));
             config.AppSettings.Settings["extension"].Value = textBoxExtension.Text;
             config.AppSettings.Settings["destinationFolder"].Value = textBoxDestination.Text;
             config.AppSettings.Settings["originalsFolder"].Value = textBoxOrginals.Text;
             config.AppSettings.Settings["sourceFolder"].Value = textBoxSource.Text;
             config.AppSettings.Settings["processFile"].Value = textBoxProcess.Text;
-            config.Save(ConfigurationSaveMode.Modified);
+            config.Save(ConfigurationSaveMode.Modified);*/
+            if (client != null)
+            {
+                client.Close();
+                client = null;
+            }            
         }
 
+        private void FolderMonitor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (client != null)
+            {
+                client.Close();
+                client = null;
+            }
+        }
     }
 }
